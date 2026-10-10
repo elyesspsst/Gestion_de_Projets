@@ -1,0 +1,34 @@
+{
+  "name": "gestion-projet",
+  "version": "1.0.0",
+  "description": "Plateforme de gestion de projets et de tâches",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "nodemon": "^3.1.0",
+    "sequelize-cli": "^6.6.5",
+    "supertest": "^7.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "migration:create": "sequelize-cli migration:generate --config src/config/database-cli.js --migrations-path src/migrations",
+    "migration:run": "sequelize-cli db:migrate --config src/config/database-cli.js --migrations-path src/migrations",
+    "migration:undo": "sequelize-cli db:migrate:undo --config src/config/database-cli.js --migrations-path src/migrations"
+  }
+}
