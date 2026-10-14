@@ -5,3 +5,10 @@ node_modules/
 !.env.example
 coverage/
 *.log
+
+backend/src/checkPassword.js
+backend/src/hashPassword.js
+/frontend/
+
+/backend/uploads/*
+!/backend/uploads/.gitkeep

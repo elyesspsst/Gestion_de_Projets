@@ -5,7 +5,10 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "migration:create": "sequelize-cli migration:generate --config src/config/database-cli.js --migrations-path src/migrations",
+    "migration:run": "sequelize-cli db:migrate --config src/config/database-cli.js --migrations-path src/migrations",
+    "migration:undo": "sequelize-cli db:migrate:undo --config src/config/database-cli.js --migrations-path src/migrations"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -13,6 +16,7 @@
     "dotenv": "^18.0.7",
     "express": "^5.3.0",
     "jsonwebtoken": "^9.0.0",
+    "multer": "^2.4.0",
     "pg": "^8.23.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.8",
@@ -23,12 +27,5 @@
     "nodemon": "^3.1.0",
     "sequelize-cli": "^6.6.5",
     "supertest": "^7.0.0"
-  },
-  "scripts": {
-    "dev": "nodemon src/server.js",
-    "test": "jest",
-    "migration:create": "sequelize-cli migration:generate --config src/config/database-cli.js --migrations-path src/migrations",
-    "migration:run": "sequelize-cli db:migrate --config src/config/database-cli.js --migrations-path src/migrations",
-    "migration:undo": "sequelize-cli db:migrate:undo --config src/config/database-cli.js --migrations-path src/migrations"
   }
 }

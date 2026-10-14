@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Employee = sequelize.define(
+  return sequelize.define(
     "Employee",
     {
       id: {
@@ -31,6 +31,16 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
+
+      profile_picture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
+      phone: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+      },
     },
     {
       tableName: "employees",
@@ -38,6 +48,4 @@ module.exports = (sequelize) => {
       underscored: true,
     },
   );
-
-  module.exports = Employee;
 };
