@@ -7,6 +7,7 @@ const sequelize = require("./config/config");
 const authRoutes = require("./routes/authRoutes");
 const profilRoutes = require("./routes/userRoutes");
 const employeeRoutes = require("./routes/employeesRoutes");
+const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/profil", profilRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/projects", projectRoutes);
 
 const PORT = process.env.PORT || 3000;
 
