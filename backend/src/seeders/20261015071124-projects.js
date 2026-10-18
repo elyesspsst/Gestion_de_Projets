@@ -13,16 +13,13 @@ module.exports = {
     const userId = users[0].id;
     const now = new Date();
 
-    await queryInterface.bulkInsert("projects", [
+    const projects = [
       {
         name: "Gestion des employés",
         description: "Projet de gestion des employés et de leurs informations.",
         start_date: "2026-01-01",
         end_date: "2026-03-31",
         status: "completed",
-        created_by: userId,
-        created_at: now,
-        updated_at: now,
       },
       {
         name: "Plateforme e-commerce",
@@ -30,9 +27,6 @@ module.exports = {
         start_date: "2026-04-01",
         end_date: "2026-12-31",
         status: "in_progress",
-        created_by: userId,
-        created_at: now,
-        updated_at: now,
       },
       {
         name: "Application mobile",
@@ -40,9 +34,6 @@ module.exports = {
         start_date: "2026-11-01",
         end_date: "2027-03-31",
         status: "planned",
-        created_by: userId,
-        created_at: now,
-        updated_at: now,
       },
       {
         name: "Refonte du site web",
@@ -50,9 +41,6 @@ module.exports = {
         start_date: "2026-05-01",
         end_date: "2026-10-31",
         status: "in_progress",
-        created_by: userId,
-        created_at: now,
-        updated_at: now,
       },
       {
         name: "Migration de la base de données",
@@ -60,11 +48,31 @@ module.exports = {
         start_date: "2027-01-01",
         end_date: "2027-02-28",
         status: "planned",
+      },
+    ];
+
+    const [existingProjects] = await queryInterface.sequelize.query(
+      "SELECT name FROM projects",
+    );
+
+    const existingNames = new Set(
+      existingProjects.map((project) => project.name),
+    );
+
+    const missingProjects = projects
+      .filter((project) => !existingNames.has(project.name))
+      .map((project) => ({
+        ...project,
         created_by: userId,
         created_at: now,
         updated_at: now,
-      },
-    ]);
+      }));
+
+    if (missingProjects.length > 0) {
+      await queryInterface.bulkInsert("projects", missingProjects);
+    }
+
+    console.log(`${missingProjects.length} new projects inserted.`);
   },
 
   async down(queryInterface, Sequelize) {

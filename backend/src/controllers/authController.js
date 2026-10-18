@@ -15,6 +15,7 @@ const register = async (req, res) => {
     }
     const existUser = await User.findOne({
       where: { email },
+      attributes: { exclude: ["password"] },
     });
     if (existUser) {
       return res.status(409).json({
@@ -30,9 +31,12 @@ const register = async (req, res) => {
       role: "EMPLOYEE",
     });
 
-    return res
-      .status(201)
-      .json({ message: "Account created successfully", user: user });
+    const { password: savedPassword, ...userWitoutPassword } = user.toJSON;
+
+    return res.status(201).json({
+      message: "Account created successfully",
+      user: userWitoutPassword,
+    });
   } catch (error) {
     console.error("Auth error:", error);
 
@@ -64,6 +68,9 @@ const login = async (req, res) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    const { password: savedPassword, ...userWithoutPassword } = user.toJSON();
+
     if (!isPasswordValid) {
       return res.status(401).json({
         message: "Invalid user or password",
@@ -85,7 +92,7 @@ const login = async (req, res) => {
     return res.status(200).json({
       message: "login Successs",
       token,
-      user: user,
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.error("Login error:", error);

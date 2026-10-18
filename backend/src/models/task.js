@@ -21,9 +21,9 @@ const Task = sequelize.define(
     },
 
     status: {
-      type: DataTypes.ENUM("todo", "in_progress", "completed", "cancelled"),
+      type: DataTypes.ENUM("pending", "in_progress", "completed", "cancelled"),
       allowNull: false,
-      defaultValue: "todo",
+      defaultValue: "pending",
     },
 
     priority: {
